@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="index,follow">
+    <title>SongleWidgetテストサイト</title>
+    <meta name="description" content="SongleWidgetテストサイト">
+    <script src="https://widget.songle.jp/v1/api.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <meta name="keywords" itemprop="keywords" content="songle,widget,テスト,API">
+</head>
+<script>
+    var befornode = null;
+    flg = 0;
+    var url = "";
+    var retu1 = [480, 640, 800, 960, 1280];
+    var retu2 = [270, 360, 450, 540, 720];
+    var W;
+    var H;
+
+    function fire(num) {
+        url = document.forms.textfild.elements.urltext.value;
+
+        if (url != "") {
+            switch (num) {
+            case 0:
+                W = retu1[num];
+                H = retu2[num];
+            case 1:
+                W = retu1[num];
+                H = retu2[num];
+            case 2:
+                W = retu1[num];
+                H = retu2[num];
+            case 3:
+                W = retu1[num];
+                H = retu2[num];
+            case 4:
+                W = retu1[num];
+                H = retu2[num];
+            }
+
+            var songleWidgetElement =
+                SongleWidgetAPI.createSongleWidgetElement({
+                    api: "songle-widget-api", // Same option with `data-api` attribute.
+                    url: url, // Same option with `data-url` attribute.
+                    songAutoPlay: false, // Same option with `data-song-auto-play` attribute.
+                    songAutoLoop: true, // Same option with `data-song-auto-loop` attribute.
+                    videoPlayerSizeW: W,
+                    videoPlayerSizeH: H,
+                    songleWidgetSizeW: W
+                });
+
+            if (flg == 1) {
+                document.body.removeChild(befornode);
+            }
+
+            document.body.appendChild(songleWidgetElement);
+            befornode = document.body.lastElementChild;
+            flg = 1;
+        } else {
+            confirm("サイト上部のバーにURLを入力してください。");
+        }
+    }
+
+    window.onSongleWidgetError =
+        function (apiKey, songleWidget) {
+            console.log("status: " + songleWidget.status);
+        }
+</script>
+
+<style>
+    a#player {
+        height: 960px;
+    }
+    
+    a#moyou {
+        z-index: 5;
+    }
+</style>
+
+<body onload="fire()">
+    <center>
+        <form id="textfild">
+            <input type="text" id="urltext" style="background-color:white;border-color:black;width:500px;">
+        </form>
+        <input type="button" value="ニコニコで探す" onClick="window.open('http://www.nicovideo.jp/')" style="background-color:white;">
+        <input type="button" value="YouTubeで探す" onClick="window.open('https://www.youtube.com')" style="background-color:white;">
+        <input type="button" value="Songleに行く" onClick="window.open('http://songle.jp/')" style="background-color:white;">
+        <br>
+        <br>
+        <input type="button" onclick="fire(0)" value="480p" style="background-color:white;">
+        <input type="button" onclick="fire(1)" value="640p" style="background-color:white;">
+        <input type="button" onclick="fire(2)" value="800p" style="background-color:white;">
+        <input type="button" onclick="fire(3)" value="960p" style="background-color:white;">
+        <input type="button" onclick="fire(4)" value="1280p" style="background-color:white;">
+    </center>
+    <br>
+    <script src="https://widget.songle.jp/v1/widgets.js"></script>
+    <script src="https://ongacrest.github.io/songle-widget-api-examples/extras/sw-extra-stats.js"></script>
+    <script src="https://ongacrest.github.io/songle-widget-api-examples/extras/sw-extra-visualizer.js"></script>
+
+</body>
+
+</html>
